@@ -1,8 +1,8 @@
 #!/bin/bash
 apt install python3
-apt install pip3
-pip3 install pyftpdlib
-pip3 install opencv_camera
+apt install pip
+pip install pyftpdlib
+pip install opencv_camera
 apt install portaudio19-dev
-pip3 install pyAudio
+pip install pyAudio
 apt install git
