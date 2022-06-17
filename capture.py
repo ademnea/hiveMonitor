@@ -5,9 +5,9 @@ import time
 import client_config
 
 if client_config.current_system == 'raspbian':
-    import linux_capture as device_capture
-else:
     import raspbian_capture as device_capture
+else:
+    import linux_capture as device_capture
 
 
 def recursive_mkdir(given_path):
