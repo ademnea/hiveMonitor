@@ -12,7 +12,7 @@ class Capture:
     def record_video(self, capture_duration=10):
         if self.camera is None:
             self.camera = PiCamera()
-        vid_path = client_config.video_dir + 'vid' + uuid.uuid4().__str__() + '.mjpeg'
+        vid_path = client_config.video_dir + 'vid' + uuid.uuid4().__str__() + '.h264'
         self.camera.start_recording(vid_path)
         self.camera.wait_recording(capture_duration)
         self.camera.stop_recording()
