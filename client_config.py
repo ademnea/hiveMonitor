@@ -1,4 +1,12 @@
 import os
+import platform
+current_system = platform.system().lower()
+if current_system == 'linux':
+    file = open('/etc/issue', 'r')
+    curr_system = file.read().lower()
+    if curr_system.find('rasp') > -1:
+        current_system = 'raspbian'
+
 # user credentials
 username = "mayweather"
 password = "mayw"
@@ -15,5 +23,3 @@ server_address = "0.0.0.0"
 
 # transfer flags for database table => file, column transferred
 TRANS_LIMIT = 5
-TRANS_INCOMPLETE = 0
-TRANS_COMPLETE = 1

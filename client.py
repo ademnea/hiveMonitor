@@ -11,7 +11,7 @@ def send_files():
 
         cursor = conn.cursor()
         cursor.execute("select * from file where transferred=? limit ?",
-                       (client_config.TRANS_INCOMPLETE, client_config.TRANS_LIMIT))
+                       (0, client_config.TRANS_LIMIT))
         rows = cursor.fetchall()
 
         for row in rows:

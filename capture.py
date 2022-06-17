@@ -1,12 +1,13 @@
 from os import path, mkdir
 from hashlib import md5
 import sqlite3
-import cv2
 import time
-import datetime
-import pyaudio
-import wave
 import client_config
+
+if client_config.current_system == 'raspbian':
+    import linux_capture as device_capture
+else:
+    import raspbian_capture as device_capture
 
 
 def recursive_mkdir(given_path):
@@ -23,10 +24,9 @@ def recursive_mkdir(given_path):
                 mkdir(given_path)
 
 
-class Capture:
-    files = []
-
+class Capture(device_capture.Capture):
     def __init__(self):
+        super().__init__()
         last_slash = client_config.database_path.rindex('/')
         database_directory = client_config.database_path[0:last_slash]
 
@@ -55,64 +55,6 @@ class Capture:
             conn.commit()
         conn.close()
 
-    def record_video(self, capture_duration=10):
-        cap = cv2.VideoCapture(0)
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        vid_path = client_config.video_dir + 'vid' + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + '.mp4'
-        out = cv2.VideoWriter(vid_path, fourcc, 20.0, (640, 480))
-
-        start_time1 = time.time()
-        while int(time.time() - start_time1) < capture_duration:
-            ret, frame = cap.read()
-            if ret:
-                frame = cv2.flip(frame, 90)
-                out.write(frame)
-                img_path = client_config.image_dir + 'img' + datetime.datetime.now().strftime(
-                    "%Y-%m-%d_%H-%M-%S") + '.jpg'
-                cv2.imwrite(img_path, frame)
-                self.files.append([img_path, "image"])
-            else:
-                break
-        self.files.append([vid_path, "video"])
-
-        cap.release()
-        out.release()
-        cv2.destroyAllWindows()
-        self.save_to_db()
-
-    def record_audio(self, record_seconds=10):
-        chunk = 1024
-        form = pyaudio.paInt16
-        channels = 2
-        rate = 44100
-
-        p = pyaudio.PyAudio()
-
-        stream = p.open(format=form,
-                        channels=channels,
-                        rate=rate,
-                        input=True,
-                        frames_per_buffer=chunk)
-
-        frames = []
-
-        for i in range(0, int(rate / chunk * record_seconds)):
-            data = stream.read(chunk)
-            frames.append(data)
-
-        stream.stop_stream()
-        stream.close()
-        p.terminate()
-        aud_path = client_config.audio_dir + 'aud' + datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + '.wav'
-        wf = wave.open(aud_path, 'wb')
-        wf.setnchannels(channels)
-        wf.setsampwidth(p.get_sample_size(form))
-        wf.setframerate(rate)
-        wf.writeframes(b''.join(frames))
-        wf.close()
-        self.files.append([aud_path, "audio"])
-        self.save_to_db()
-
     def save_to_db(self):
         start_time = time.time()
         # wait for video to save
@@ -132,5 +74,6 @@ class Capture:
 
 if __name__ == "__main__":
     capture = Capture()
+    capture.snap(5)
     capture.record_audio()
     capture.record_video()
