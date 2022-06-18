@@ -1,7 +1,7 @@
 Quick links
 ===========
 
--   [Home](https://github.com/timothy-mayweather/Raspcapture/Raspcapture-server)
+-   [Home](https://github.com/timothy-mayweather/Raspcapture/tree/master/Raspcapture-server)
 
 About
 =====
