@@ -2,3 +2,5 @@
 client_info
 server_info
 __pycache__
+venv
+trial.py
