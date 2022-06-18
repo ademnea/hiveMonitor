@@ -1,4 +1,4 @@
-import client_config
+import config
 import time
 from picamera import PiCamera
 import uuid
@@ -11,7 +11,7 @@ class Capture:
 
     def record_video(self, capture_duration=10):
         self.init_camera()
-        vid_path = client_config.video_dir + 'vid' + uuid.uuid4().__str__() + '.h264'
+        vid_path = config.video_dir + 'vid' + uuid.uuid4().__str__() + '.h264'
         self.camera.start_recording(vid_path)
         self.camera.wait_recording(capture_duration)
         self.camera.stop_recording()
@@ -30,7 +30,7 @@ class Capture:
         self.init_camera()
         time.sleep(2)
         for i in range(num):
-            img_path = client_config.image_dir + 'img' + uuid.uuid4().__str__() + '.jpg'
+            img_path = config.image_dir + 'img' + uuid.uuid4().__str__() + '.jpg'
             self.camera.capture(img_path)
             self.files.append([img_path, "image"])
         self.save_to_db()

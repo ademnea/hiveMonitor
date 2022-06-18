@@ -2,9 +2,9 @@ from os import path, mkdir
 from hashlib import md5
 import sqlite3
 import time
-import client_config
+import config
 
-if client_config.current_system == 'raspbian':
+if config.current_system == 'raspbian':
     import raspbian_capture as device_capture
 else:
     import linux_capture as device_capture
@@ -27,20 +27,20 @@ def recursive_mkdir(given_path):
 class Capture(device_capture.Capture):
     def __init__(self):
         super().__init__()
-        last_slash = client_config.database_path.rindex('/')
-        database_directory = client_config.database_path[0:last_slash]
+        last_slash = config.database_path.rindex('/')
+        database_directory = config.database_path[0:last_slash]
 
         # check if directories exist and if not create them
-        if not path.isdir(client_config.video_dir):
-            recursive_mkdir(client_config.video_dir)
-        if not path.isdir(client_config.audio_dir):
-            recursive_mkdir(client_config.audio_dir)
-        if not path.isdir(client_config.image_dir):
-            recursive_mkdir(client_config.image_dir)
+        if not path.isdir(config.video_dir):
+            recursive_mkdir(config.video_dir)
+        if not path.isdir(config.audio_dir):
+            recursive_mkdir(config.audio_dir)
+        if not path.isdir(config.image_dir):
+            recursive_mkdir(config.image_dir)
         if not path.isdir(database_directory):
             recursive_mkdir(database_directory)
 
-        conn = sqlite3.connect(client_config.database_path)
+        conn = sqlite3.connect(config.database_path)
         cursor = conn.cursor()
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
         if cursor.fetchall().__str__().find('file') == -1:
@@ -60,7 +60,7 @@ class Capture(device_capture.Capture):
         # wait for video to save
         while int(time.time() - start_time) < 5:
             pass
-        conn = sqlite3.connect(client_config.database_path)
+        conn = sqlite3.connect(config.database_path)
         for file in self.files:
             try:
                 conn.execute("insert into file (file_name, file_path, file_type, hash_value) values (?,?,?,?)",
