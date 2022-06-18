@@ -1,7 +1,7 @@
 from pyftpdlib.handlers import FTPHandler as PYFTPHandler
 from hashlib import md5
 import sqlite3
-import server_config
+import config
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.servers import FTPServer
 from os import path, mkdir
@@ -29,17 +29,17 @@ class FTPHandler(PYFTPHandler):
         self.files_in_transit = {}
         self.proto_cmds['SIGNIN'] = dict(perm=None, auth=False, arg=True,
                                          help='Syntax: SIGNIN (list all new features supported).')
-        self.home_dir = server_config.base_dir
+        self.home_dir = config.base_dir
 
-        if not path.isfile(server_config.database_path):
-            last_slash = server_config.database_path.rindex('/')
-            database_directory = server_config.database_path[0:last_slash]
+        if not path.isfile(config.database_path):
+            last_slash = config.database_path.rindex('/')
+            database_directory = config.database_path[0:last_slash]
 
             # check if directories exist and if not create them
             if not path.isdir(database_directory):
                 recursive_mkdir(database_directory)
 
-        conn = sqlite3.connect(server_config.database_path)
+        conn = sqlite3.connect(config.database_path)
         cursor = conn.cursor()
         # check if tables don't exist and create them
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
@@ -127,8 +127,8 @@ class FTPHandler(PYFTPHandler):
 
     @staticmethod
     def fetch_user(username):
-        if path.isfile(server_config.database_path):
-            conn = sqlite3.connect(server_config.database_path, detect_types=sqlite3.PARSE_COLNAMES)
+        if path.isfile(config.database_path):
+            conn = sqlite3.connect(config.database_path, detect_types=sqlite3.PARSE_COLNAMES)
             conn.row_factory = sqlite3.Row
 
             cursor = conn.cursor()
@@ -151,9 +151,9 @@ class FTPHandler(PYFTPHandler):
     def ftp_STOR(self, file, mode='w'):
         param_index = file.find('|>')
         params = file[param_index + 2:].split('|')
-        file_dir = self.user_details['directory'] + (server_config.user_image_dir if params[0] == 'image' else
-                                                     (server_config.user_audio_dir if params[0] == 'audio'
-                                                      else server_config.user_video_dir))
+        file_dir = self.user_details['directory'] + (config.user_image_dir if params[0] == 'image' else
+                                                     (config.user_audio_dir if params[0] == 'audio'
+                                                      else config.user_video_dir))
         recursive_mkdir(file_dir)
         file_path = file_dir + file[0:param_index].split('/')[-1]
         self.files_in_transit[file_path] = params
@@ -161,7 +161,7 @@ class FTPHandler(PYFTPHandler):
 
     @staticmethod
     def add_user_to_db(username, password, directory, permissions):
-        conn = sqlite3.connect(server_config.database_path)
+        conn = sqlite3.connect(config.database_path)
         try:
             conn.execute("insert into user (username, password, permissions, directory) values (?,?,?,?)",
                          (username, password, permissions, directory))
@@ -173,7 +173,7 @@ class FTPHandler(PYFTPHandler):
             return -1
 
     def add_file_to_db(self, file_name, file_path, file_type, file_hash):
-        conn = sqlite3.connect(server_config.database_path)
+        conn = sqlite3.connect(config.database_path)
         try:
             conn.execute("insert into file(file_name, file_path, file_type, hash_value, user) values (?,?,?,?,?)",
                          (file_name, file_path, file_type, file_hash, self.user_details['id']))
@@ -194,5 +194,5 @@ if __name__ == "__main__":
     # Define a customized banner (string returned when client connects)
     handler.banner = "Hello, welcome to team one ftp server"
 
-    server = FTPServer((server_config.address, server_config.port), FTPHandler)
+    server = FTPServer((config.address, config.port), FTPHandler)
     server.serve_forever()
