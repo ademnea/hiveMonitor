@@ -1,0 +1,3 @@
+[submodule "Raspcapture-client"]
+	path = Raspcapture-client
+	url = https://github.com/ademnea/Raspcapture-client.git
