@@ -1,3 +1,11 @@
+After cloning repo;
+==========
+```
+Open terminal and type
+git submodule init 
+git submodule update
+```
+
 Quick links
 ===========
 
