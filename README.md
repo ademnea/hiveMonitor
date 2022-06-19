@@ -1,10 +1,3 @@
-To clone
-==========
-Open terminal and type
-```
-git clone --recurse-submodules https://github.com/ademnea/Raspcapture.git
-```
-
 Quick links
 ===========
 
