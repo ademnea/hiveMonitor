@@ -1,9 +1,8 @@
-After cloning repo;
+To clone
 ==========
 ```
 Open terminal and type
-git submodule init 
-git submodule update
+git clone --recurse-submodules https://github.com/ademnea/Raspcapture.git
 ```
 
 Quick links
