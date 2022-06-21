@@ -1,6 +1,4 @@
 .idea
-Raspcapture-client
-Raspcapture-server
 __pycache__
 venv
 trial.py
