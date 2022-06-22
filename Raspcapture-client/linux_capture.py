@@ -1,7 +1,7 @@
 import cv2
 import pyaudio
 import wave
-import config2
+import config
 import time
 import uuid
 
@@ -13,7 +13,7 @@ class Capture:
     def record_video(self, capture_duration=10):
         cap = cv2.VideoCapture(0)
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        vid_path = config2.video_dir + 'vid' + uuid.uuid4().__str__() + '.mp4'
+        vid_path = config.video_dir + 'vid' + uuid.uuid4().__str__() + '.mp4'
         out = cv2.VideoWriter(vid_path, fourcc, 20.0, (640, 480))
 
         start_time1 = time.time()
@@ -22,7 +22,7 @@ class Capture:
             if ret:
                 frame = cv2.flip(frame, 90)
                 out.write(frame)
-                img_path = config2.image_dir + 'img' + uuid.uuid4().__str__() + '.jpg'
+                img_path = config.image_dir + 'img' + uuid.uuid4().__str__() + '.jpg'
                 cv2.imwrite(img_path, frame)
                 self.files.append([img_path, "image"])
             else:
@@ -57,7 +57,7 @@ class Capture:
         stream.stop_stream()
         stream.close()
         p.terminate()
-        aud_path = config2.audio_dir + 'aud' + uuid.uuid4().__str__() + '.wav'
+        aud_path = config.audio_dir + 'aud' + uuid.uuid4().__str__() + '.wav'
         wf = wave.open(aud_path, 'wb')
         wf.setnchannels(channels)
         wf.setsampwidth(p.get_sample_size(form))

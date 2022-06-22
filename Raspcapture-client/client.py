@@ -1,15 +1,18 @@
 from ftplib import FTP, error_perm
 from os import path
 import sqlite3
-import config2
+import config
+
+# paths
+database_path = config.base_dir+"database.sqlite"
 
 
 def access_server():
     try:
-        ftp = FTP(config2.server_address)
+        ftp = FTP(config.server_address)
         print(ftp.welcome[4:])
-        username = config2.username
-        password = config2.password
+        username = config.username
+        password = config.password
         try:
             ftp.login(username, password)
             logged_in = 1
@@ -19,7 +22,7 @@ def access_server():
             ftp.putcmd('SIGNIN -u ' + username + ' -p ' + password)
             ftp.quit()
             # re-instantiate ftp
-            ftp = FTP(config2.server_address)
+            ftp = FTP(config.server_address)
             ftp.login(username, password)
             print('sign up and log in successful.')
             logged_in = 1
@@ -33,13 +36,13 @@ def access_server():
 
 
 def send_files():
-    if path.isfile(config2.database_path):
-        conn = sqlite3.connect(config2.database_path, detect_types=sqlite3.PARSE_COLNAMES)
+    if path.isfile(database_path):
+        conn = sqlite3.connect(database_path, detect_types=sqlite3.PARSE_COLNAMES)
         conn.row_factory = sqlite3.Row
 
         cursor = conn.cursor()
         cursor.execute("select * from file where transferred=? limit ?",
-                       (0, config2.TRANS_LIMIT))
+                       (0, config.TRANS_LIMIT))
         rows = cursor.fetchall()
 
         if len(rows) == 0:
