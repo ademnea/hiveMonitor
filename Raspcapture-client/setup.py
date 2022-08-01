@@ -3,8 +3,8 @@ import os
 base_dir = os.getcwd()
 
 configurations = ["username",  "password",
-                  "base_dir",  "server_address", "TRANS_LIMIT"]
-values = ["", "", base_dir, "127.0.0.1",  "5"]
+                  "base_dir",  "server_address", "TRANS_LIMIT", "image_url", "audio_url", "video_url"]
+values = ["", "", base_dir, "127.0.0.1:8000",  "5", "/api/create", "", "/api/createVideo"]
 config_dict = {}
 
 

@@ -6,10 +6,10 @@ import uuid
 import config
 
 # paths
-video_dir = config.base_dir+"multimedia/videos/"
-audio_dir = config.base_dir+"multimedia/audios/"
-image_dir = config.base_dir+"multimedia/images/"
-database_path = config.base_dir+"database.sqlite"
+video_dir = config.base_dir+"/multimedia/videos/"
+audio_dir = config.base_dir+"/multimedia/audios/"
+image_dir = config.base_dir+"/multimedia/images/"
+database_path = config.base_dir+"/multimedia/database.sqlite"
 
 
 class Capture:

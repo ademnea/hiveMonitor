@@ -6,10 +6,10 @@ import config
 import device_capture
 
 # paths
-video_dir = config.base_dir+"multimedia/videos/"
-audio_dir = config.base_dir+"multimedia/audios/"
-image_dir = config.base_dir+"multimedia/images/"
-database_path = config.base_dir+"database.sqlite"
+video_dir = config.base_dir+"/multimedia/videos/"
+audio_dir = config.base_dir+"/multimedia/audios/"
+image_dir = config.base_dir+"/multimedia/images/"
+database_path = config.base_dir+"/multimedia/database.sqlite"
 
 
 def recursive_mkdir(given_path):
