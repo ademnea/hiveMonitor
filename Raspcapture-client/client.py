@@ -39,7 +39,7 @@ def send_files():
             response = requests.request("POST", config.server_address+mult_url, headers=None, data=payload, files=files)
             file.close()
             if "true" in response.text:
-                conn.execute("update file set transferred = 1 where id = ?", (row_dict['id']))
+                conn.execute("update file set transferred = 1 where id = "+str(row_dict['id']))
                 conn.commit()
                 print(row_dict['file_name']+" transferred successfully.")
             else:
