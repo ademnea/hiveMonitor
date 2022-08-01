@@ -25,6 +25,6 @@ for dist in distributions:
         shutil.rmtree('__pycache__', ignore_errors=True)
         shutil.rmtree('jm', ignore_errors=True)
         os.chdir('..')
-        shutil.make_archive('Raspcapture-client-'+dist, 'zip', 'Raspcapture-client-'+dist)
-        shutil.rmtree('Raspcapture-client-'+dist)
+        # shutil.make_archive('Raspcapture-client-'+dist, 'zip', 'Raspcapture-client-'+dist)
+        # shutil.rmtree('Raspcapture-client-'+dist)
         os.chdir('..')
