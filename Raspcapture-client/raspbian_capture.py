@@ -17,13 +17,17 @@ class Capture:
         self.files = []
         self.camera = None
 
+    def change_format(self, file_path):
+        return file_path
+
     def record_video(self, capture_duration=10):
         self.init_camera()
         vid_path = video_dir + 'vid' + uuid.uuid4().__str__() + '.h264'
         self.camera.start_recording(vid_path)
         self.camera.wait_recording(capture_duration)
         self.camera.stop_recording()
-        self.files.append([vid_path, "video"])
+
+        self.files.append([self.change_format(vid_path), "video"])
         self.save_to_db()
 
     def record_audio(self, record_seconds=10):
@@ -56,7 +60,7 @@ class Capture:
         wf.setframerate(rate)
         wf.writeframes(b''.join(frames))
         wf.close()
-        self.files.append([aud_path, "audio"])
+        self.files.append([self.change_format(aud_path), "audio"])
         self.save_to_db()
 
     def init_camera(self):
@@ -70,7 +74,7 @@ class Capture:
         for i in range(num):
             img_path = image_dir + 'img' + uuid.uuid4().__str__() + '.jpg'
             self.camera.capture(img_path)
-            self.files.append([img_path, "image"])
+            self.files.append([self.change_format(img_path), "image"])
         self.save_to_db()
 
     def save_to_db(self):

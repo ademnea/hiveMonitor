@@ -6,6 +6,4 @@ Quick links
 About
 =====
 
-Raspcapture has two submodules (client and server)
 - [Client](https://github.com/ademnea/Raspcapture/tree/master/Raspcapture-client)
-- [Server](https://github.com/ademnea/Raspcapture/tree/master/Raspcapture-server)

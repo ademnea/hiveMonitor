@@ -2,11 +2,10 @@ import os
 import shutil
 from distutils.dir_util import copy_tree
 import sys
-import subprocess
 
-build_sys = "all"
+build_sys = "raspbian"
 if len(sys.argv) > 1:
-    if sys.argv[1] in ["raspbian", "linux", "server"]:
+    if sys.argv[1] in ["raspbian", "linux"]:
         build_sys = sys.argv[1]
     else:
         print("Error: Supplied wrong arguments!")
@@ -38,28 +37,10 @@ for dist in distributions:
         shutil.rmtree('jm', ignore_errors=True)
         os.chdir('..')
         os.chdir('..')
-copy_tree("Raspcapture-server", "dist/Raspcapture-server")
 
-if build_sys == "all":
-    exit(0)
-
-if build_sys == "server":
+if build_sys == "raspbian":
     os.chdir(new_dir)
     shutil.rmtree('Raspcapture-client-linux', ignore_errors=True)
-    shutil.rmtree('Raspcapture-client-raspbian', ignore_errors=True)
-    os.chdir('..')
-    os.chdir('..')
-    copy_tree("Raspcapture/dist/Raspcapture-server", "Raspcapture-server")
-
-    shutil.rmtree('Raspcapture', ignore_errors=True)
-    copy_tree("Raspcapture-server", "Raspcapture")
-    shutil.rmtree('Raspcapture-server', ignore_errors=True)
-    exit(0)
-
-elif build_sys == "raspbian":
-    os.chdir(new_dir)
-    shutil.rmtree('Raspcapture-client-linux', ignore_errors=True)
-    shutil.rmtree('Raspcapture-server', ignore_errors=True)
     os.chdir('..')
     os.chdir('..')
     copy_tree("Raspcapture/dist/Raspcapture-client-raspbian", "Raspcapture-client-raspbian")
@@ -72,7 +53,6 @@ elif build_sys == "raspbian":
 else:
     os.chdir(new_dir)
     shutil.rmtree('Raspcapture-client-raspbian', ignore_errors=True)
-    shutil.rmtree('Raspcapture-server', ignore_errors=True)
     os.chdir('..')
     os.chdir('..')
     copy_tree("Raspcapture/dist/Raspcapture-client-linux", "Raspcapture-client-linux")
