@@ -4,7 +4,7 @@ import sqlite3
 import config
 
 # paths
-database_path = config.base_dir+"database.sqlite"
+database_path = config.base_dir+"/multimedia/database.sqlite"
 
 
 def access_server():
