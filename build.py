@@ -37,7 +37,7 @@ for dist in distributions:
         shutil.rmtree('jm', ignore_errors=True)
         os.chdir('..')
         os.chdir('..')
-exit(0)
+
 if build_sys == "raspbian":
     os.chdir(new_dir)
     shutil.rmtree('Raspcapture-client-linux', ignore_errors=True)
