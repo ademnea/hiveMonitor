@@ -4,6 +4,7 @@ from picamera import PiCamera
 import uuid
 import pyaudio
 import wave
+from subprocess import call
 
 # paths
 video_dir = config.base_dir+"/multimedia/videos/"
@@ -18,7 +19,13 @@ class Capture:
         self.camera = None
 
     def change_format(self, file_path):
-        return file_path
+        new_file_path = file_path
+        if file_path.endswith(".h264"):
+            new_file_path = file_path[:-5]+".mp4"
+            call("MP4Box -fps 30 -add "+file_path+" "+new_file_path)
+            call("rm "+file_path)
+
+        return new_file_path
 
     def record_video(self, capture_duration=10):
         self.init_camera()

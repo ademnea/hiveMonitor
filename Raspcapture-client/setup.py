@@ -4,7 +4,7 @@ base_dir = os.getcwd()
 
 configurations = ["username",  "password",
                   "base_dir",  "server_address", "TRANS_LIMIT", "image_url", "audio_url", "video_url"]
-values = ["", "", base_dir, "http://127.0.0.1:8000",  "5", "/api/create", "", "/api/createVideo"]
+values = ["", "", base_dir, "http://whispering-journey-94566.herokuapp.com",  "5", "/api/create", "/api/audio", "/api/createvideo"]
 config_dict = {}
 
 
@@ -80,7 +80,7 @@ if __name__ == "__main__":
             exit(0)
     else:
         print("No config file found, Let's create one")
-    create_config(False)
+        create_config(False)
 
     save_config(config_dict)
 
