@@ -22,8 +22,8 @@ class Capture:
         new_file_path = file_path
         if file_path.endswith(".h264"):
             new_file_path = file_path[:-5]+".mp4"
-            call("MP4Box -fps 30 -add "+file_path+" "+new_file_path)
-            call("rm "+file_path)
+            call("MP4Box -fps 30 -add "+file_path+" "+new_file_path, shell=True)
+            call("rm "+file_path, shell=True)
 
         return new_file_path
 
