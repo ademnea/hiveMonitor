@@ -48,6 +48,11 @@ There are two scripts
 - 2. client.py - Sends the saved media files with the help of a database to the remote server.
 
 #### Capturing
+Ensure that the camera is enable otherwise the capture will not be successful
+You can run the command below to see the configurations for your raspberry Pi
+```sh
+sudo raspi-config
+```
 This is done by running the command below
 ```sh
 python capture.py
