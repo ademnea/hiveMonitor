@@ -14,7 +14,7 @@ audio and video, saving them and sending them to the remote server.
 - Internet Connection (Wifi)
 - Python3 
 ## Installation
-### Step 1
+### Step 1: Cloning the project
 Go to the terminal and run the following command to clone the project of the Raspberry Pi
 
 ```sh
@@ -26,13 +26,38 @@ Run the command below
 ```sh
 cd  Raspcapture
 ```
-### Step 2
+### Step 2: Building the project
 Build the project by running the commands
 ```sh
 python build.py 
 cd ..
+cd Raspcapture
 ```
 This will build a version that is compatible with your raspberry Pi
-### Step 3
+### Step 3: Installing dependencies
+```sh
+sudo ./install.sh
+```
+### Step 4: Configuring the client
+```sh
+python setup.py
+```
+### Step 5: Running
+There are two scripts 
+- 1. capture.py - Captures the images, records both audio and video, saves them their information to a database
+- 2. client.py - Sends the saved media files with the help of a database to the remote server.
 
+#### Capturing
+This is done by running the command below
+```sh
+python capture.py
+```
+#### Sending
+This is effected by the command 
+```sh
+python client.py
+```
+#### Final remarks
+To automate the process of capturing and sending of the files cron jobs have to be set up to
+run both scripts
 
