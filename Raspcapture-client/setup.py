@@ -1,11 +1,30 @@
 import os
 
 base_dir = os.getcwd()
+""" 
+These are the default configurations(Key=>Value) pairs
+You should note that changing a key name may cause a script that used that key to fail
+So ensure that when you change a key name, you also change it in the script that uses it
+"""
+config_dict = {
+    "node_id": "",
+    "username": "",
+    "password": "",
+    "base_dir": base_dir,
+    "server_address": "http://whispering-journey-94566.herokuapp.com",
+    "TRANS_LIMIT": 5,
+    "image_url": "/api/create",
+    "audio_url": "/api/audio",
+    "video_url": "/api/createvideo",
+    "logitude": 0.0,
+    "latitude": 0.0
+}
 
-configurations = ["username",  "password",
-                  "base_dir",  "server_address", "TRANS_LIMIT", "image_url", "audio_url", "video_url"]
-values = ["", "", base_dir, "http://whispering-journey-94566.herokuapp.com",  "5", "/api/create", "/api/audio", "/api/createvideo"]
-config_dict = {}
+configurations = list(config_dict.keys())  # extract keys from the config_dict
+
+values = list(config_dict.values())  # extract values from the config_dict
+
+config_dict = {}  # Make it empty to allow the user to customise the configurations
 
 
 def create_config(editing):
@@ -41,10 +60,14 @@ def save_config(config_dict):
              "# Note that errors in the config file can result into the failure of the whole client\n"
              "# So be careful while editing, thanks \n\n"]
     for key in config_dict:
-        if(config_dict[key].isdigit()):
-            lines.append(f"{key} = {config_dict[key]}\n")
-        else:
-            lines.append(f"{key} = \"{config_dict[key]}\"\n")
+        try:
+            print(config_dict[key])
+            if(config_dict[key].isdigit()):
+                lines.append(f"{key} = {config_dict[key]}\n")
+            else:
+                lines.append(f"{key} = \"{config_dict[key]}\"\n")
+        except Exception as e:
+            print("Error", e.with_traceback)
 
     # Now save the configurations
     with open("config.py", "w+") as f:
