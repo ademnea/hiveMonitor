@@ -12,7 +12,7 @@ config_dict = {
     "password": "",
     "base_dir": base_dir,
     "server_address": "http://whispering-journey-94566.herokuapp.com",
-    "TRANS_LIMIT": 10,
+    "TRANS_LIMIT": 28,
     "image_url": "/api/create",
     "audio_url": "/api/audio",
     "video_url": "/api/createvideo",
@@ -112,8 +112,8 @@ if __name__ == "__main__":
     print("\nTo run the client, run the following command:")
     print("python3 client.py\n")
     file = open('cron.txt', 'w')
-    capture_string = "#<--start of Raspcapture crons\n# capture after every minute\n*/1 * * * * python "+base_dir+"/capture.py"
-    send_string = "\n# send after every 5 minutes\n*/5 * * * * python "+base_dir+"/client.py"+"\n#<--end of Raspcapture crons"
+    capture_string = "#<--start of Raspcapture crons\n# capture after every hour\n0 */1 * * * python "+base_dir+"/capture.py"
+    send_string = "\n# send after every 4 hours\n0 */4 * * * python "+base_dir+"/client.py"+"\n#<--end of Raspcapture crons"
     file.write(capture_string+send_string)
     file.close()
     print("Note: The configurations created a cron.txt file")
