@@ -66,3 +66,5 @@ python client.py
 To automate the process of capturing and sending of the files cron jobs have to be set up to
 run both scripts
 
+
+
