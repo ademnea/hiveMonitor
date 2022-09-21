@@ -1,6 +1,9 @@
-# Raspcapture client
-This is the cllient application. It runs on the raspberry pi (details are below). It performs the capturing of the images, recording of both 
-audio and video, saving them and sending them to the remote server.
+# hiveMonitor client
+This is the application that runs on a raspberry pi, placed in a bee hive and performs the following: 
+i) Capturing of the images
+ii) Recording of Videos
+iii) Recording of Audio sounds of the bees
+iv) Saving collected data on an SD card and sending to a remote server.
 
 ## System Requirements
 ### Hardware Requirements
