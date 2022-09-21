@@ -112,7 +112,7 @@ if __name__ == "__main__":
     print("\nTo run the client, run the following command:")
     print("python3 client.py\n")
     file = open('cron.txt', 'w')
-    capture_string = "#<--start of Raspcapture crons\n# capture after every hour\n0 */1 * * * python "+base_dir+"/capture.py"
+    capture_string = "#<--start of hiveMonitor crons\n# capture after every hour\n0 */1 * * * python "+base_dir+"/capture.py"
     send_string = "\n# send after every 4 hours\n0 */4 * * * python "+base_dir+"/client.py"+"\n#<--end of Raspcapture crons"
     file.write(capture_string+send_string)
     file.close()

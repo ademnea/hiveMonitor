@@ -22,9 +22,9 @@ if not os.path.isdir(new_dir):
 distributions = ['linux', 'raspbian']
 
 for dist in distributions:
-    if not os.path.isdir("dist/Raspcapture-client-"+dist) or not os.path.isfile("dist/Raspcapture-client-"+dist+".zip"):
-        copy_tree("Raspcapture-client", "dist/Raspcapture-client-"+dist)
-        os.chdir(new_dir+'/Raspcapture-client-'+dist)
+    if not os.path.isdir("dist/hiveMonitor-"+dist) or not os.path.isfile("dist/hiveMonitor-"+dist+".zip"):
+        copy_tree("hiveMonitor", "dist/hiveMonitor"+dist)
+        os.chdir(new_dir+'/hiveMonitor-'+dist)
         files = os.listdir()
         for file in files:
             if file.startswith(distributions[abs(distributions.index(dist)-1)]):
@@ -40,25 +40,25 @@ for dist in distributions:
 
 if build_sys == "raspbian":
     os.chdir(new_dir)
-    shutil.rmtree('Raspcapture-client-linux', ignore_errors=True)
+    shutil.rmtree('hiveMonitor-linux', ignore_errors=True)
     os.chdir('..')
     os.chdir('..')
-    copy_tree("Raspcapture/dist/Raspcapture-client-raspbian", "Raspcapture-client-raspbian")
+    copy_tree("RhiveMonitor/dist/hiveMonitor-raspbian", "hiveMonitor-raspbian")
 
-    shutil.rmtree('Raspcapture', ignore_errors=True)
-    copy_tree("Raspcapture-client-raspbian", "Raspcapture")
-    shutil.rmtree('Raspcapture-client-raspbian', ignore_errors=True)
+    shutil.rmtree('hiveMonitor', ignore_errors=True)
+    copy_tree("hiveMonitor-raspbian", "hiveMonitor")
+    shutil.rmtree('hiveMonitor-raspbian', ignore_errors=True)
     exit(0)
 
 else:
     os.chdir(new_dir)
-    shutil.rmtree('Raspcapture-client-raspbian', ignore_errors=True)
+    shutil.rmtree('hiveMonitor-raspbian', ignore_errors=True)
     os.chdir('..')
     os.chdir('..')
-    copy_tree("Raspcapture/dist/Raspcapture-client-linux", "Raspcapture-client-linux")
+    copy_tree("hiveMonitor/dist/hiveMonitor-linux", "hiveMonitor-linux")
 
-    shutil.rmtree('Raspcapture', ignore_errors=True)
-    copy_tree("Raspcapture-client-linux", "Raspcapture")
-    shutil.rmtree('Raspcapture-client-linux', ignore_errors=True)
+    shutil.rmtree('hiveMonitor', ignore_errors=True)
+    copy_tree("hiveMonitor-linux", "hiveMonitor")
+    shutil.rmtree('hiveMonitor-linux', ignore_errors=True)
     exit(0)
 
