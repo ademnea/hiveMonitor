@@ -21,7 +21,7 @@ iv) Saving collected data on an SD card and sending to a remote server.
 Go to the terminal and run the following command to clone the project of the Raspberry Pi
 
 ```sh
-git clone https://github.com/ademnea/Raspcapture.git
+https://github.com/ademnea/hiveMonitor.git
 ```
 When it runs successfully you will have the Raspcapture-client on the Pi
 After that ensure that you go to the Raspcapture folder 
