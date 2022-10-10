@@ -23,7 +23,7 @@ distributions = ['linux', 'raspbian']
 
 for dist in distributions:
     if not os.path.isdir("dist/hiveMonitor-"+dist) or not os.path.isfile("dist/hiveMonitor-"+dist+".zip"):
-        copy_tree("hiveMonitor", "dist/hiveMonitor"+dist)
+        copy_tree("hiveMonitor", "dist/hiveMonitor-"+dist)
         os.chdir(new_dir+'/hiveMonitor-'+dist)
         files = os.listdir()
         for file in files:
