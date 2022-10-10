@@ -34,7 +34,7 @@ Build the project by running the commands
 ```sh
 python build.py 
 cd ..
-cd Raspcapture
+cd hiveMonitor
 ```
 This will build a version that is compatible with your raspberry Pi
 ### Step 3: Installing dependencies
