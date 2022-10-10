@@ -11,12 +11,12 @@ config_dict = {
     "username": "",
     "password": "",
     "base_dir": base_dir,
-    "server_address": "http://whispering-journey-94566.herokuapp.com",
+    "server_address": "",
     "TRANS_LIMIT": 28,
-    "image_url": "/api/create",
-    "audio_url": "/api/audio",
-    "video_url": "/api/createvideo",
-    "logitude": 0.0,
+    "image_url": "/var/www/html/ademnea_website/public/hiveimage",
+    "audio_url": "/var/www/html/ademnea_website/public/hiveaudio",
+    "video_url": "/var/www/html/ademnea_website/public/hivevideo",
+    "longitude": 0.0,
     "latitude": 0.0
 }
 
