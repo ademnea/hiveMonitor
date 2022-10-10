@@ -27,7 +27,7 @@ When it runs successfully you will have the Raspcapture-client on the Pi
 After that ensure that you go to the Raspcapture folder 
 Run the command below
 ```sh
-cd  Raspcapture
+cd  hiveMonitor
 ```
 ### Step 2: Building the project
 Build the project by running the commands
