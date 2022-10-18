@@ -1,14 +1,18 @@
-import requests
+import paramiko
 from os import path
 import sqlite3
 import config
 
+ssh = paramiko.SSHClient()
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+ssh.connect(ip_address,username='', password= '')
+print("Connected successfully")
+sftp = ssh.open_sftp()
 multimedia_urls = {'audio': config.audio_url,
                    'image': config.image_url, 'video': config.video_url}
 
 # paths
 database_path = config.base_dir+"/multimedia/database.sqlite"
-
 
 def send_files():
     if path.isfile(database_path):
@@ -37,14 +41,14 @@ def send_files():
                 continue
 
             file = open(row_dict['file_path'], 'rb')
-            payload = {'title': row_dict['file_name'], "node_id": config.node_id,
-                       "longitude": config.logitude, "latitude": config.latitude}
-            files = [(row_dict['file_type'], (row_dict['file_type'],
-                      file, 'application/octet-stream'))]
-            response = requests.request(
-                "POST", config.server_address+mult_url, headers=None, data=payload, files=files)
-            file.close()
-            if "true" in response.text:
+            #payload = {'title': row_dict['file_name'], "node_id": config.node_id,
+            #"longitude": config.longitude, "latitude": config.latitude}
+            
+            # files = [(row_dict['file_type'], (row_dict['file_type'],
+                    #   file, 'application/octet-stream'))]
+            ret= sftp.put(file,mult_url+row_dict['file_name'])            
+            file.close()            
+            if (ret):
                 conn.execute(
                     "update file set transferred = 1 where id = "+str(row_dict['id']))
                 conn.commit()
@@ -52,7 +56,10 @@ def send_files():
             else:
                 print(row_dict['file_name']+" transfer failed!")
         print('closing.....')
+        sftp.close()
         conn.close()
+        ssh.close()
+        exit()
     else:
         print('No files to send')
 
