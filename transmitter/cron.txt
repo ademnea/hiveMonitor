@@ -1,0 +1,6 @@
+#<--start of hiveMonitor crons
+# capture after every hour
+0 */1 * * * python /home/pi/hiveMonitor/transmitter/capture.py
+# send after every 4 hours
+0 */4 * * * python /home/pi/hiveMonitor/transmitter/client.py
+#<--end of Raspcapture crons
