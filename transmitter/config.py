@@ -6,11 +6,11 @@
 # So be careful while editing, thanks 
 
 node_id = 1234
-username = "hiveMonitor"
-password = "Ad@mnea321"
+username = ""
+password = ""
 base_dir = "/home/pi/hiveMonitor/transmitter"
 TRANS_LIMIT = 28
-server_address = "http://ademnea.net:"
+server_address = ""
 image_url = "/var/www/html/ademnea_website/public/hiveimage/"
 audio_url = "/var/www/html/ademnea_website/public/hiveaudio/"
 video_url =  "/var/www/html/ademnea_website/public/hivevideo/"
