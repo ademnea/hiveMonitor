@@ -32,7 +32,8 @@ class Capture:
     def record_video(self, capture_duration=10):
         self.init_camera()
         #vid_path = video_dir + 'vid' + uuid.uuid4().__str__() + timeString+ '.h264'
-        vid_path = video_dir + 'vid_' + str(config.node_id)+ '_'+ str(config.longitude) + '_'+ str(config.latitude) + '_' + timeString  + '.h264'
+        vid_path = video_dir + 'vid_' + str(config.node_id)+  '_' + timeString  +  '.h264'
+       # vid_path = video_dir + 'vid_' + str(config.node_id)+ '_'+ str(config.longitude) + '_'+ str(config.latitude) + '_' + timeString  + '.h264'
         self.camera.start_recording(vid_path)
         self.camera.wait_recording(capture_duration)
         self.camera.stop_recording()
@@ -61,8 +62,9 @@ class Capture:
 
         stream.stop_stream()
         stream.close()
-        p.terminate()       
-        aud_path = audio_dir + 'aud_' + str(config.node_id)+ '_'+ str(config.longitude) + '_'+ str(config.latitude) + '_' + timeString + '.wav'
+        p.terminate()
+        aud_path = audio_dir + 'aud_' + str(config.node_id)+  '_' + timeString  +  '.wav'
+        #aud_path = audio_dir + 'aud_' + str(config.node_id)+ '_'+ str(config.longitude) + '_'+ str(config.latitude) + '_' + timeString + '.wav'
         # aud_path = audio_dir + 'aud' + uuid.uuid4().__str__() + '.wav'
         wf = wave.open(aud_path, 'wb')
         wf.setnchannels(channels)
@@ -82,7 +84,8 @@ class Capture:
         self.init_camera()
         time.sleep(2)
         for i in range(num):
-            img_path = image_dir + 'img_' + str(config.node_id)+ '_'+ str(config.longitude) + '_'+ str(config.latitude) + '_' + timeString  +  '.jpg'
+            img_path = image_dir + 'img_' + str(config.node_id)+  '_' + timeString  +  '.jpg'
+             #img_path = image_dir + 'img_' + str(config.node_id)+ '_'+ str(config.longitude) + '_'+ str(config.latitude) + '_' + timeString  +  '.jpg'
             # img_path = image_dir + 'img' + uuid.uuid4().__str__() + '.jpg'
             self.camera.capture(img_path)
             self.files.append([self.change_format(img_path), "image"])

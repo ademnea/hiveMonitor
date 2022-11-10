@@ -5,7 +5,7 @@ import config
 
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-ssh.connect(ip_address,username='', password= '')
+ssh.connect('',username='', password= '')
 print("Connected successfully")
 sftp = ssh.open_sftp()
 multimedia_urls = {'audio': config.audio_url,
@@ -40,14 +40,14 @@ def send_files():
                       " is blank hence file not transferred.")
                 continue
 
-            file = open(row_dict['file_path'], 'rb')
+            #file = open(row_dict['file_path'], 'rb')
             #payload = {'title': row_dict['file_name'], "node_id": config.node_id,
             #"longitude": config.longitude, "latitude": config.latitude}
             
             # files = [(row_dict['file_type'], (row_dict['file_type'],
                     #   file, 'application/octet-stream'))]
-            ret= sftp.put(file,mult_url+row_dict['file_name'])            
-            file.close()            
+            ret= sftp.put(row_dict['file_path'],mult_url+row_dict['file_name'])            
+            #file.close()            
             if (ret):
                 conn.execute(
                     "update file set transferred = 1 where id = "+str(row_dict['id']))
